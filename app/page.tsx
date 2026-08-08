@@ -75,33 +75,34 @@ export default function Home() {
 
   return (
     <main>
-      <div className="topbar">Bestel online & haal af wanneer het jou uitkomt <span>•</span> Vandaag open tot 21:30</div>
+      <div className="topbar">Rijksweg 42A, Duiven <span>·</span> Vandaag open tot 21:30</div>
       <header className="header">
         <button className="brand" onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })} aria-label="Naar boven">
           <img src="/bakhuus-logo.jpg" alt="’t Bakhuus" />
         </button>
-        <nav><a href="#verhaal">Ons verhaal</a><a href="#opening">Openingstijden</a><a href="#contact">Contact</a></nav>
-        <button className="cart-button" onClick={() => setCartOpen(true)}><span>Mandje</span><b>{count}</b></button>
+        <nav><a href="#bestellen">Menukaart</a><a href="#verhaal">Over ons</a><a href="#opening">Openingstijden</a></nav>
+        <button className="cart-button" onClick={() => count ? setCartOpen(true) : goMenu()}><span>{count ? "Mandje" : "Bestellen"}</span><b>{count || "→"}</b></button>
       </header>
 
       <section className="hero">
         <div className="hero-photo" />
         <div className="hero-overlay" />
         <div className="hero-copy">
-          <div className="eyebrow light"><i /> Lokaal lekker sinds jaar en dag</div>
-          <h1>Vers bereid.<br/><em>Thuus genieten.</em></h1>
-          <p>Van goudgele patat tot onze royaal belegde burgers. Bestel je favorieten eenvoudig online.</p>
-          <div className="hero-actions"><button className="primary" onClick={() => goMenu()}>Bekijk het menu <span>→</span></button><div className="rating"><span>★★★★★</span><b>4.6</b> uit 5</div></div>
+          <p className="hero-kicker">Cafetaria ’t Bakhuus · Duiven</p>
+          <h1>Zin in een<br/>goede friet?</h1>
+          <p>Bestel online. Wij bakken het vers en zorgen dat het op tijd voor je klaarstaat.</p>
+          <div className="hero-actions"><button className="primary" onClick={() => goMenu()}>Bestel online</button><a href="tel:0316253275">Of bel 0316 25 32 75</a></div>
         </div>
-        <div className="open-card"><span className="pulse"/><div><b>Vandaag geopend</b><small>Bestellen tot 21:15</small></div><strong>11:30 — 21:30</strong></div>
+        <div className="open-card"><span className="pulse"/><div><b>We zijn vandaag open</b><small>Rijksweg 42A, Duiven</small></div><strong>tot 21:30</strong></div>
       </section>
 
-      <section className="quick-cats">
-        {[['🍟','Patat'],['🍔','Hamburgers'],['🥖','Broodjes'],['🍽️','Plate service']].map(([icon, label]) => <button key={label} onClick={() => goMenu(label)}><span>{icon}</span><div><b>{label}</b><small>Bekijk assortiment</small></div><i>→</i></button>)}
+      <section className="welcome-strip">
+        <div><b>Vandaag geen zin om te koken?</b><span>Geen probleem. Kies wat lekkers uit en wij gaan voor je aan de slag.</span></div>
+        <button onClick={() => goMenu("Populair")}>Bekijk wat vaak besteld wordt →</button>
       </section>
 
       <section id="bestellen" className="order-section">
-        <div className="section-head"><div><div className="eyebrow"><i /> ONLINE BESTELLEN</div><h2>Waar heb je trek in?</h2></div><p>Kies je favorieten, stel ze samen zoals jij wilt en wij zorgen dat het vers voor je klaarstaat.</p></div>
+        <div className="section-head"><div><p className="section-label">ONLINE BESTELLEN</p><h2>Wat wil je eten?</h2></div><p>Friet, snacks, broodjes of een stevige plate. Kies je favorieten en pas ze aan zoals jij ze graag hebt.</p></div>
         <div className="order-tools">
           <div className="search"><span>⌕</span><input value={query} onChange={(e) => setQuery(e.target.value)} placeholder="Zoek in onze menukaart..." aria-label="Zoeken in menu" /></div>
           <div className="category-scroll">{categories.map((c) => <button className={category === c ? "active" : ""} key={c} onClick={() => setCategory(c)}>{c}</button>)}</div>
@@ -115,14 +116,18 @@ export default function Home() {
         </div>
       </section>
 
-      <section id="verhaal" className="story"><div className="story-image"><div className="story-badge"><b>VERS</b><span>bereid in Duiven</span></div></div><div className="story-copy"><div className="eyebrow light"><i /> ECHT ’T BAKHUUS</div><h2>Hier smaakt<br/><em>thuus</em> het lekkerst.</h2><p>Bij ’t Bakhuus draait het om goed eten zonder gedoe. Met aandacht bereid, gul geserveerd en altijd met die vertrouwde smaak waar Duiven voor terugkomt.</p><div className="story-points"><span><b>✓</b> Vers bereid</span><span><b>✓</b> Ruime keuze</span><span><b>✓</b> Snel afgehaald</span></div><button onClick={() => goMenu()} className="text-link">Ontdek onze favorieten <span>→</span></button></div></section>
+      <section className="reviews"><div><span>★★★★★</span><b>Wat vinden onze gasten?</b><small>Lees de ervaringen van bezoekers uit Duiven en omgeving.</small></div><a href="https://www.google.com/search?q=%27t+Bakhuus+Duiven+reviews" target="_blank">Bekijk onze reviews op Google →</a></section>
 
-      <section id="opening" className="info-section"><div className="info-intro"><div className="eyebrow"><i /> KOM LANGS</div><h2>Je vindt ons<br/>in hartje Duiven.</h2><p>Makkelijk bereikbaar aan de Rijksweg. Bestel vooraf, dan staat het op het gekozen tijdstip voor je klaar.</p><a href="https://www.google.com/maps/search/?api=1&query=Rijksweg+42A+Duiven" target="_blank">Route openen →</a></div><div className="map"><span>’t BAKHUUS</span><small>Rijksweg 42A</small></div><div className="hours"><h3>Openingstijden</h3>{[["Maandag","Gesloten"],["Dinsdag","11:30 – 21:00"],["Woensdag","11:30 – 21:00"],["Donderdag","11:30 – 21:00"],["Vrijdag","11:30 – 21:30"],["Zaterdag","11:30 – 21:30"],["Zondag","12:00 – 21:30"]].map(([d,t],i)=><div className={i===5?"today":""} key={d}><span>{d}{i===5&&<small>Vandaag</small>}</span><b>{t}</b></div>)}</div></section>
+      <section id="verhaal" className="story"><div className="story-image"/><div className="story-copy"><p className="section-label">GEWOON HIER IN DUIVEN</p><h2>Een vertrouwde plek voor iets lekkers.</h2><p>’t Bakhuus is zo’n zaak waar je gewoon even binnenloopt. Voor een frietje na het werk, een broodje tijdens de lunch of een makkelijke maaltijd voor het hele gezin.</p><p>We maken je bestelling pas als jij hem bestelt. Dan is hij warm en vers wanneer je hem komt halen.</p><button onClick={() => goMenu()} className="text-link">Bekijk de menukaart →</button></div></section>
+
+      <section id="opening" className="info-section"><div className="info-intro"><p className="section-label">KOM LANGS</p><h2>Je vindt ons aan de Rijksweg.</h2><p><b>’t Bakhuus Duiven</b><br/>Rijksweg 42A<br/>6921 AH Duiven</p><p><a href="tel:0316253275">0316 25 32 75</a><br/><a href="mailto:bakhuusduiven@hotmail.com">bakhuusduiven@hotmail.com</a></p><a className="route-link" href="https://www.google.com/maps/search/?api=1&query=Rijksweg+42A+Duiven" target="_blank">Bekijk de route op Google Maps →</a></div><div className="map"><span>’t BAKHUUS</span><small>Rijksweg 42A</small></div><div className="hours"><h3>Wanneer zijn we open?</h3>{[["Maandag","Gesloten"],["Dinsdag","11:30 – 21:00"],["Woensdag","11:30 – 21:00"],["Donderdag","11:30 – 21:00"],["Vrijdag","11:30 – 21:30"],["Zaterdag","11:30 – 21:30"],["Zondag","12:00 – 21:30"]].map(([d,t],i)=><div className={i===5?"today":""} key={d}><span>{d}{i===5&&<small>Vandaag</small>}</span><b>{t}</b></div>)}</div></section>
+      <section className="last-order"><div><b>Vanavond iets makkelijks?</b><span>Bestel online, kies je tijd en haal het warm bij ons op.</span></div><button onClick={() => goMenu()}>Bestellen</button></section>
       <footer id="contact"><div className="footer-brand"><div className="brand"><img src="/bakhuus-logo-purple.jpg" alt="’t Bakhuus" /></div><p>Gewoon goed eten.<br/>Lekker dichtbij.</p></div><div><b>Contact</b><a href="https://www.google.com/maps/search/?api=1&query=Rijksweg+42A+Duiven">Rijksweg 42A<br/>6921 AH Duiven</a><a href="tel:0316253275">0316 25 32 75</a></div><div><b>Snel naar</b><a href="#bestellen">Online bestellen</a><a href="#opening">Openingstijden</a><a href="#verhaal">Over ons</a></div><div className="newsletter"><b>Blijf op de hoogte</b><p>Ontvang onze acties en nieuwe specials.</p><label><input placeholder="Jouw e-mailadres"/><button>→</button></label></div><small className="copyright">© 2026 ’t Bakhuus Duiven · Privacy · Algemene voorwaarden</small></footer>
 
       {selected && <div className="modal-backdrop" onMouseDown={() => setSelected(null)}><div className="product-modal" onMouseDown={(e)=>e.stopPropagation()}><button className="close" onClick={()=>setSelected(null)}>×</button><img src={selected.image} alt=""/><div className="modal-content"><div className="eyebrow"><i/> SAMENSTELLEN</div><h2>{selected.name}</h2><p>{selected.description}</p><fieldset><legend>Kies je saus <small>optioneel</small></legend>{["Geen saus","Fritessaus + € 1,00","Curry + € 1,00","Speciaal + € 1,00","Satésaus + € 1,00"].map(s=><label key={s}><input type="radio" name="sauce" checked={sauce===s} onChange={()=>setSauce(s)}/><span>{s}</span></label>)}</fieldset><label className="note">Opmerking <small>optioneel</small><textarea value={note} onChange={(e)=>setNote(e.target.value)} placeholder="Bijv. saus apart verpakken"/></label><button className="add-wide" onClick={()=>addProduct(selected,sauce,note)}>Toevoegen aan mandje <b>{euro(selected.price + (sauce!=="Geen saus"?1:0))}</b></button></div></div></div>}
       {cartOpen && <><div className="drawer-backdrop" onClick={()=>setCartOpen(false)}/><aside className="cart-drawer"><div className="drawer-head"><div><small>JOUW BESTELLING</small><h2>Winkelmandje <span>{count}</span></h2></div><button onClick={()=>setCartOpen(false)}>×</button></div>{cart.length===0?<div className="empty"><span>🍟</span><h3>Nog niets gekozen</h3><p>Je favoriete gerechten wachten op je.</p><button onClick={()=>setCartOpen(false)}>Bekijk het menu</button></div>:<><div className="cart-items">{cart.map(item=><div className="cart-item" key={item.cartId}><img src={item.image} alt=""/><div><b>{item.name}</b>{item.option&&item.option!=="Geen saus"&&<small>{item.option}</small>}<div className="qty"><button onClick={()=>changeQty(item.cartId,-1)}>−</button><span>{item.quantity}</span><button onClick={()=>changeQty(item.cartId,1)}>+</button></div></div><strong>{euro(item.unitPrice*item.quantity)}</strong></div>)}</div><div className="upsell"><div><b>Lekker erbij?</b><span>Maak je bestelling compleet</span></div><div className="upsell-items">{[products[13],products[2],products[12]].map(p=><button key={p.id} onClick={()=>addProduct(p)}><img src={p.image} alt=""/><span><b>{p.name}</b><small>{euro(p.price)}</small></span><i>+</i></button>)}</div></div><div className="cart-total"><div><span>Subtotaal</span><b>{euro(subtotal)}</b></div><small>Inclusief btw · Geen bestelkosten</small><button onClick={()=>{setCartOpen(false);setCheckout(true)}}>Doorgaan naar afrekenen <span>→</span></button></div></>}</aside></>}
       {count>0&&!cartOpen&&<button className="mobile-cart" onClick={()=>setCartOpen(true)}><span><b>{count}</b> Bekijk winkelmandje</span><strong>{euro(subtotal)}</strong></button>}
+      {count===0&&<button className="mobile-order" onClick={()=>goMenu()}>Bestellen <span>→</span></button>}
     </main>
   );
 }
