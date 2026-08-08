@@ -84,6 +84,11 @@ export default function Home() {
         <button className="cart-button" onClick={() => count ? setCartOpen(true) : goMenu()}><span>{count ? "Mandje" : "Bestellen"}</span><b>{count || "→"}</b></button>
       </header>
 
+      <aside className="vacancy-banner">
+        <div><b>Wij zoeken versterking!</b><span>Enthousiaste jongeren vanaf 15 jaar zijn welkom voor een leuke bijbaan, werkervaring en een mooi zakcentje.</span></div>
+        <a href="tel:0316253275">Interesse? Bel 0316 25 32 75</a>
+      </aside>
+
       <section className="hero">
         <div className="hero-photo" />
         <div className="hero-overlay" />
@@ -100,8 +105,6 @@ export default function Home() {
         <div><b>Vandaag geen zin om te koken?</b><span>Geen probleem. Kies wat lekkers uit en wij gaan voor je aan de slag.</span></div>
         <button onClick={() => goMenu("Populair")}>Bekijk wat vaak besteld wordt →</button>
       </section>
-
-      <section className="jobs"><div><p className="section-label">WERKEN BIJ ’T BAKHUUS</p><h2>Kom jij ons team versterken?</h2><p>Wij zoeken enthousiaste en gemotiveerde jongeren vanaf 15 jaar. Een leuke bijbaan waarin je ervaring opdoet, nieuwe mensen leert kennen én een zakcentje verdient.</p></div><div className="jobs-action"><b>Interesse?</b><span>Bel ons gerust, dan vertellen we je meer.</span><a href="tel:0316253275">Bel 0316 25 32 75</a></div></section>
 
       <section id="bestellen" className="order-section">
         <div className="section-head"><div><p className="section-label">ONLINE BESTELLEN</p><h2>Wat wil je eten?</h2></div><p>Friet, snacks, broodjes of een stevige plate. Kies je favorieten en pas ze aan zoals jij ze graag hebt.</p></div>
